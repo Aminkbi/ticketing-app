@@ -1,7 +1,7 @@
 export async function getTicketComments(ticketId: string) {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/comments/?id=${ticketId}`,
+      `${process.env.BASE_URL}/api/comments/?id=${ticketId}`,
       {
         cache: "no-cache",
       }

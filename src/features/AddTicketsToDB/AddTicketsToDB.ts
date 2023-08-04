@@ -24,7 +24,7 @@ const AddTicketsToDB = async (
   }
   const body: Props = { title, description, priority };
   try {
-    const response = await fetch("http://localhost:3000/api/tickets", {
+    const response = await fetch(`${process.env.BASE_URL}/api/tickets`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
