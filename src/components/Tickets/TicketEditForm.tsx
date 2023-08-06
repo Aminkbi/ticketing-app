@@ -3,7 +3,7 @@
 import EditTicketsInDB from "@/features/EditTicketsInDB/EditTicketsInDB";
 import { Ticket } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useState, useTransition } from "react";
 
 export default function TicketEditForm({
   id,
@@ -15,6 +15,8 @@ export default function TicketEditForm({
   const [title, setTitle] = useState(ticket.title);
   const [description, setDescription] = useState(ticket.description);
   const [priority, setPriority] = useState(ticket.priority);
+  const [success, setSuccess] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
   return (
@@ -63,15 +65,24 @@ export default function TicketEditForm({
         </select>
       </div>
 
-      <button
-        onClick={(e) => {
-          EditTicketsInDB({ title, description, priority, id }, e);
-          router.refresh();
-        }}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-      >
-        Edit Ticket
-      </button>
+      {success && (
+        <p className="text-2xl text-green-500"> Ticket Edited Sucessfully</p>
+      )}
+      <div className="flex">
+        <button
+          onClick={(e) => {
+            setSuccess(false);
+            startTransition(async () => {
+              await EditTicketsInDB({ title, description, priority, id }, e);
+              setSuccess(true);
+              router.refresh();
+            });
+          }}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Edit Ticket
+        </button>
+      </div>
     </div>
   );
 }
