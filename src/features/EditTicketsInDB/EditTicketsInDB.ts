@@ -18,13 +18,14 @@ const EditTicketsInDB = async (
   const body: bodyProps = { title, description, priority };
   try {
     const response = await fetch(
-      `${process.env.BASE_URL}/api/tickets/?id=${id}`,
+      `http://localhost:3000/api/tickets/?id=${id}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       }
     );
+    return response;
   } catch (err: any) {
     console.error(err.message);
   }
