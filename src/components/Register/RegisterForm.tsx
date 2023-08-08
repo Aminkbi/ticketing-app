@@ -79,7 +79,7 @@ export default function RegisterForm() {
         }}
         className="btn btn-primary "
       >
-        Create Ticket
+        Register
       </button>
     </div>
   );

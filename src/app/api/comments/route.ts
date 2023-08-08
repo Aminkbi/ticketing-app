@@ -31,5 +31,5 @@ export async function POST(req: Request) {
       userId,
     },
   });
-  return NextResponse.json(comment);
+  return NextResponse.json({ res: "ok" }, { status: 200 });
 }

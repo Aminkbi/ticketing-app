@@ -1,3 +1,5 @@
+"use server";
+
 export const GetOneTicketById = async (id: string) => {
   try {
     const response = await fetch(

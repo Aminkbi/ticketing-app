@@ -1,4 +1,4 @@
-import { Comment } from "@prisma/client";
+"use server";
 
 const AddCommentsToDB = async (
   {
@@ -18,7 +18,7 @@ const AddCommentsToDB = async (
   }
   const body = { content, ticketId };
   try {
-    const response = await fetch(`${process.env.BASE_URL}/api/comments`, {
+    await fetch(`${process.env.BASE_URL}/api/comments`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),

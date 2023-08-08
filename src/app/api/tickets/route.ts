@@ -71,5 +71,5 @@ export async function PUT(req: Request) {
       priority,
     },
   });
-  return NextResponse.json("Done");
+  return NextResponse.json({ title: "OK" }, { status: 200 });
 }

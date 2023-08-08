@@ -1,3 +1,5 @@
+"use server";
+
 export interface Props {
   title: string;
   description: string;

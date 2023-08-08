@@ -2,12 +2,14 @@
 
 import AddTicketsToDB from "@/features/AddTicketsToDB/AddTicketsToDB";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 
 export default function TicketForm() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
   return (
@@ -55,14 +57,20 @@ export default function TicketForm() {
           <option value="LOW">LOW</option>
         </select>
       </div>
-
+      {success && (
+        <p className="text-2xl text-green-500"> Ticket Added Sucessfully</p>
+      )}
       <button
         onClick={(e) => {
-          AddTicketsToDB({ title, description, priority }, e);
+          setSuccess(false);
+          startTransition(async () => {
+            await AddTicketsToDB({ title, description, priority }, e);
+            setSuccess(true);
+            router.refresh();
+          });
           setTitle("");
           setDescription("");
           setPriority("");
-          router.refresh();
         }}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
       >

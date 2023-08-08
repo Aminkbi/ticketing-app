@@ -1,3 +1,5 @@
+"use server";
+
 export async function getTicketComments(ticketId: string) {
   try {
     const response = await fetch(

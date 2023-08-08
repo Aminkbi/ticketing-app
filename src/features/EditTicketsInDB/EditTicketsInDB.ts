@@ -1,3 +1,5 @@
+"use server";
+
 interface Props {
   title: string;
   description: string;
@@ -18,7 +20,7 @@ const EditTicketsInDB = async (
   const body: bodyProps = { title, description, priority };
   try {
     const response = await fetch(
-      `http://localhost:3000/api/tickets/?id=${id}`,
+      `${process.env.BASE_URL}/api/tickets/?id=${id}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
